@@ -21,6 +21,7 @@ function Result({ selectedTypes, PAGE_SIZE, setCurrentPage, currentPage }) {
   const currentPokemons = filteredPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon)
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
+  const numPages = Math.ceil(filteredPokemons.length / PAGE_SIZE);
 
   return (
     <div className="pokemon-grid">
@@ -39,30 +40,63 @@ function Result({ selectedTypes, PAGE_SIZE, setCurrentPage, currentPage }) {
           </div>
         ))
       }
-      <Pagination pokemonPerPage={PAGE_SIZE} totalPokemon={filteredPokemons.length} paginate={paginate} />
+      <Pagination pokemonPerPage={PAGE_SIZE} totalPokemon={filteredPokemons.length} currentPage={currentPage} numPages={numPages} paginate={paginate} />
     </div>
   )
 }
 
-function Pagination({ pokemonPerPage, totalPokemon, paginate }) {
+function Pagination({ pokemonPerPage, totalPokemon, currentPage, numPages, paginate }) {
   const pageNumbers = []
 
-  for (let i = 1; i <= Math.ceil(totalPokemon / pokemonPerPage); i++) {
+  for (let i = 1; i <= numPages; i++) {
     pageNumbers.push(i)
   }
 
   return (
     <div className="pagination-container">
+      <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>Prev</button>
       {
         pageNumbers.map(number => (
-          <button key={number} onClick={() => paginate(number)}>
+          <button key={number} onClick={() => paginate(number)} className={currentPage === number ? 'active' : ''}>
             {number}
           </button>
         ))
       }
+      <button onClick={() => paginate(currentPage + 1)} disabled={currentPage === numPages}>Next</button>
     </div>
   )
 }
+
+
+// function Pagination({ pokemonPerPage, totalPokemon, paginate, currentPage }) {
+//     const pageNumbers = []
+  
+//     for (let i = 1; i <= Math.ceil(totalPokemon / pokemonPerPage); i++) {
+//       pageNumbers.push(i)
+//     }
+  
+//     const indexOfLastPage = currentPage * 10
+//     const indexOfFirstPage = indexOfLastPage - 10
+//     const currentPages = pageNumbers.slice(indexOfFirstPage, indexOfLastPage)
+  
+//     return (
+//       <div className="pagination-container">
+//         <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+//           {/* Back */}
+//         </button>
+//         {
+//           currentPages.map(number => (
+//             <button key={number} onClick={() => paginate(number)} className={currentPage === number ? 'active' : ''}>
+//               {number}
+//             </button>
+//           ))
+//         }
+//         <button onClick={() => paginate(currentPage + 1)} disabled={currentPage === Math.ceil(totalPokemon / pokemonPerPage)}>
+//           {/* Next */}
+//         </button>
+//       </div>
+//     )
+//   }
 
 export default Result
 

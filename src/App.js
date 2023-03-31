@@ -22,12 +22,12 @@ function App() {
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />
-      <Pagination
+      {/* <Pagination
         selectedTypes={selectedTypes}
         PAGE_SIZE={PAGE_SIZE}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
-      />
+      /> */}
     </>
   );
 }
