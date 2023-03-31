@@ -42,4 +42,4 @@ function Search({ selectedTypes, setSelectedTypes }) {
   )
 }
 
-export default Search;
+export default Search
