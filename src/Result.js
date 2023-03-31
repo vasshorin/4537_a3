@@ -76,6 +76,10 @@ function Result({ selectedTypes, PAGE_SIZE, setCurrentPage, currentPage }) {
                 <p>Speed:</p>
                 <p>{selectedPokemon.base.Speed}</p>
               </div>
+              <div className="pokemon-modal-stat">
+                <p>Total:</p>
+                <p>{selectedPokemon.base.Total}</p>
+              </div>
             </div>
           </div>
         </div>
