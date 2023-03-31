@@ -1,6 +1,5 @@
 import Search from "./Search";
 import Result from "./Result";
-import Pagination from "./Pagination";
 import { useState } from "react";
 
 function App() {
