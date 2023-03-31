@@ -1,15 +1,39 @@
 .pokemon-grid {
+
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 1rem;
+  justify-items: center;
+  align-items: center;
 }
 
 .pokemon-card {
-  background-color: #f1f1f1;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
+
+.pokemon-card img {
+  width: 150px;
+  height: 150px;
+}
+
+.pokemon-card h3 {
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+.pokemon-card p {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+} */
 
 .pokemon-card[type="Grass"] {
   background-color: #78c850;
@@ -251,7 +275,6 @@
   padding: 5px 10px;
   border-radius: 5px;
 }
-
 
 /* .pokemon-grid {
 
