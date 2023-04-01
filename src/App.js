@@ -1,15 +1,11 @@
 import Search from "./Search";
 import Result from "./Result";
 import { useState } from "react";
-
+import Login from "./Login";
 function App() {
-  const [selectedTypes, setSelectedTypes] = useState([]);
-  const PAGE_SIZE = 10;
-  const [currentPage, setCurrentPage] = useState(1);
-
   return (
     <>
-      <Search selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes} />
+      {/* <Search selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes} />
       {selectedTypes.length > 0 ? (
         <Result
           selectedTypes={selectedTypes}
@@ -17,7 +13,8 @@ function App() {
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
         />
-      ) : null}
+      ) : null} */}
+      <Login />
     </>
   );
 }
