@@ -110,7 +110,8 @@ function Report({id, accessToken, setAccessToken, refreshToken}) {
         });
         console.log(res.data)
         if (res.data) {
-            const labels = res.data.map((item) => item._id);
+            const labels = res.data.map((item) => item._id.endpoint);
+
             const data = res.data.map((item) => item.count);
             setChartData({
               labels: labels,
