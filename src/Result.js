@@ -32,6 +32,14 @@ function Result({ selectedTypes, PAGE_SIZE, setCurrentPage, currentPage }) {
     setSelectedPokemon(null)
   }
 
+  const logOut = () => {
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('user');
+    window.location.reload();
+  }
+
+
   return (
     <div>
       {selectedPokemon && (
@@ -100,9 +108,12 @@ function Result({ selectedTypes, PAGE_SIZE, setCurrentPage, currentPage }) {
           </div>
         ))
       }
+          <button onClick={logOut}>Log Out</button>
     </div>
       <Pagination pokemonPerPage={PAGE_SIZE} totalPokemon={filteredPokemons.length} currentPage={currentPage} numPages={numPages} paginate={paginate} />
     </div>
+
+
   )
 }
 
