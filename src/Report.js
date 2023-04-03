@@ -125,7 +125,59 @@ function Report({id, accessToken, setAccessToken, refreshToken, setRefreshToken,
             } catch (error) {
                 console.error(error);
             }
-        }
+        } else if(id === 4)
+        {
+            res = await axios.get(`http://localhost:6003/logs/top-users-by-endpoint`, {
+          headers: {
+            "auth-token-access": accessToken,
+          },
+        })
+        console.log(res.data)
+
+        if (res.data) {
+            const labels = res.data.map(item => item.endpoint);
+            const topUsers = res.data.map(item => item.top_user);
+            const counts = res.data.map(item => item.count);
+
+      setChartData({
+        labels: labels,
+        datasets: [
+          {
+            label: 'Top User Requests by Endpoint',
+            data: counts,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1,
+          },
+        ],
+      });
+    }
+    }  else if(id === 5){
+
+        res = await axios.get(`http://localhost:6003/logs/recent-errors`, {
+            headers: {
+                "auth-token-access": accessToken,
+            },
+            })
+            console.log(res.data)
+
+            if (res.data) {
+                const labels = res.data.map(item => new Date(item.timestamp).toLocaleString());
+                const data = res.data.map(item => item.status_code);
+                setChartData({
+                  labels: labels,
+                  datasets: [
+                    {
+                      label: 'Status Code',
+                      data: data,
+                      fill: false,
+                      borderColor: 'rgba(255, 99, 132, 1)',
+                      borderWidth: 1,
+                    },
+                  ],
+                });
+              }
+            } 
         }
         fetchReport();
     }, [id, accessToken]);
