@@ -12,7 +12,7 @@ import {
 import { Bar } from 'react-chartjs-2';
 import jwt_decode from "jwt-decode";
 
-function Report({id, accessToken, setAccessToken, refreshToken}) {
+function Report({id, accessToken, setAccessToken, refreshToken, setRefreshToken, setUser}) {
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -23,6 +23,23 @@ function Report({id, accessToken, setAccessToken, refreshToken}) {
   );
 
   const [chartData, setChartData] = useState(null);
+
+
+
+
+  useEffect(() => {
+    console.log("Lpgin use effect is called")
+    const savedRefreshToken = localStorage.getItem('refreshToken');
+    const savedAccessToken = localStorage.getItem('accessToken');
+    const savedUser = localStorage.getItem('user');
+    if (savedRefreshToken && savedUser && savedAccessToken) {
+      setRefreshToken(savedRefreshToken);
+      setAccessToken(savedAccessToken)
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+  
+
 
   // Add a request interceptor
   const axiosToBeIntercepted = axios.create()
@@ -40,6 +57,7 @@ function Report({id, accessToken, setAccessToken, refreshToken}) {
           }
         })
       setAccessToken(res.headers["auth-token-access"])
+      localStorage.setItem('accessToken', res.headers["auth-token-access"]);
       config.headers["auth-token-access"] = res.headers["auth-token-access"]
     }
 

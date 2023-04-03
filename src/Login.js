@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import axios from 'axios'
 import { useState } from 'react'
 import Dashboard from './Dashboard'
@@ -23,10 +23,26 @@ function Login() {
         username: username,
         password: password
       })
-    setUser(res.data)
-    setAccessToken(res.headers["auth-token-access"])
-    setRefreshToken(res.headers["auth-token-refresh"])
+      localStorage.setItem('refreshToken', res.headers["auth-token-refresh"]);
+      localStorage.setItem('accessToken', res.headers["auth-token-access"]);
+      localStorage.setItem('user', JSON.stringify(res.data));
+      setUser(res.data);
+      setAccessToken(res.headers["auth-token-access"]);
+      setRefreshToken(res.headers["auth-token-refresh"]);
   }
+
+  useEffect(() => {
+    console.log("Lpgin use effect is called")
+    const savedRefreshToken = localStorage.getItem('refreshToken');
+    const savedAccessToken = localStorage.getItem('accessToken');
+    const savedUser = localStorage.getItem('user');
+    if (savedRefreshToken && savedUser && savedAccessToken) {
+      setRefreshToken(savedRefreshToken);
+      setAccessToken(savedAccessToken)
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+    
 
   return (
     <div>
@@ -36,6 +52,8 @@ function Login() {
           accessToken={accessToken}
           setAccessToken={setAccessToken}
           refreshToken={refreshToken}
+          setRefreshToken={setRefreshToken}
+          setUser={setUser}
         />
       }
       {
