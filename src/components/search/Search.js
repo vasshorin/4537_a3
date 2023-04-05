@@ -38,6 +38,7 @@ function Search({ selectedTypes, setSelectedTypes, searchTerm, setSearchTerm }) 
         <input
           type="text"
           placeholder="Search by name"
+          id = "search"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
