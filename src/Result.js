@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import './Result.css'
+import Pagination from './Pagination'
 
-function Result({ selectedTypes, PAGE_SIZE, setCurrentPage, currentPage }) {
+function Result({ selectedTypes, PAGE_SIZE, setCurrentPage, currentPage, searchTerm, setSearchTerm }) {
 
   const [pokemons, setPokemons] = useState([])
   const [selectedPokemon, setSelectedPokemon] = useState(null)
+
+
 
   useEffect(() => {
     async function fetchData() {
@@ -15,11 +18,21 @@ function Result({ selectedTypes, PAGE_SIZE, setCurrentPage, currentPage }) {
     fetchData()
   }, [])
 
-  const filteredPokemons = pokemons.filter(pokemon => selectedTypes.length === 0 || selectedTypes.every(type => pokemon.type.includes(type)))
+  const filteredPokemons = pokemons.filter(
+    (pokemon) =>
+      (
+        selectedTypes.every((type) => pokemon.type.includes(type))) &&
+      (searchTerm === "" || pokemon.name.english.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
+  
 
   const indexOfLastPokemon = currentPage * PAGE_SIZE
   const indexOfFirstPokemon = indexOfLastPokemon - PAGE_SIZE
-  const currentPokemons = filteredPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon)
+  const currentPokemons = filteredPokemons.slice(
+    indexOfFirstPokemon,
+    indexOfLastPokemon
+  ).filter(pokemon => pokemon.name.english.toLowerCase().includes(searchTerm.toLowerCase()));
+  
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
   const numPages = Math.ceil(filteredPokemons.length / PAGE_SIZE);
@@ -32,12 +45,6 @@ function Result({ selectedTypes, PAGE_SIZE, setCurrentPage, currentPage }) {
     setSelectedPokemon(null)
   }
 
-  const logOut = () => {
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('user');
-    window.location.reload();
-  }
 
 
   return (
@@ -108,34 +115,12 @@ function Result({ selectedTypes, PAGE_SIZE, setCurrentPage, currentPage }) {
           </div>
         ))
       }
-          <button onClick={logOut}>Log Out</button>
+         
     </div>
-      <Pagination pokemonPerPage={PAGE_SIZE} totalPokemon={filteredPokemons.length} currentPage={currentPage} numPages={numPages} paginate={paginate} />
+    <Pagination pokemonPerPage={PAGE_SIZE} totalPokemon={filteredPokemons.length} currentPage={currentPage} numPages={numPages} paginate={paginate} setSearchTerm={setSearchTerm} />
     </div>
 
 
-  )
-}
-
-function Pagination({ pokemonPerPage, totalPokemon, currentPage, numPages, paginate }) {
-  const pageNumbers = []
-
-  for (let i = 1; i <= numPages; i++) {
-    pageNumbers.push(i)
-  }
-
-  return (
-    <div className="pagination-container">
-      <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>Prev</button>
-      {
-        pageNumbers.map(number => (
-          <button key={number} onClick={() => paginate(number)} className={currentPage === number ? 'active' : ''}>
-            {number}
-          </button>
-        ))
-      }
-      <button onClick={() => paginate(currentPage + 1)} disabled={currentPage === numPages}>Next</button>
-    </div>
   )
 }
 

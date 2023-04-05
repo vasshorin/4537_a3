@@ -14,6 +14,7 @@ function Login() {
   const [refreshToken, setRefreshToken] = useState('')
   const [user, setUser] = useState({})
   const [selectedTypes, setSelectedTypes] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const PAGE_SIZE = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -57,9 +58,9 @@ function Login() {
           setUser={setUser}
         />
       }
-      {
+     {
   (accessToken && user?.role === "user") &&
-  <Search selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes} />
+  <Search selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes} setSearchTerm={setSearchTerm} />
 }
 {
   (selectedTypes.length > 0) &&
@@ -68,6 +69,8 @@ function Login() {
     PAGE_SIZE={PAGE_SIZE}
     setCurrentPage={setCurrentPage}
     currentPage={currentPage}
+    searchTerm={searchTerm}
+    setSearchTerm={setSearchTerm}
   />
 }
       {
