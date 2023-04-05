@@ -34,7 +34,6 @@ function Login() {
   }
 
   useEffect(() => {
-    console.log("Lpgin use effect is called")
     const savedRefreshToken = localStorage.getItem('refreshToken');
     const savedAccessToken = localStorage.getItem('accessToken');
     const savedUser = localStorage.getItem('user');
