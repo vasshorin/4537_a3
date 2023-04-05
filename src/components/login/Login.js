@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
 import { useState } from 'react'
-import Dashboard from './Dashboard'
-import Search from './Search'
-import Result from './Result'
+import Dashboard from '../dashboard/Dashboard'
+import Search from '../search/Search'
+import Result from '../result/Result'
 import './Login.css'
 
 

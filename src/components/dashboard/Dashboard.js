@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Report from './Report'
+import Report from '../report/Report'
 import {
     Routes,
     Route,

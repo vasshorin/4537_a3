@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import './Result.css'
-import Pagination from './Pagination'
+import Pagination from '../pagination/Pagination'
 
 function Result({ selectedTypes, PAGE_SIZE, setCurrentPage, currentPage, searchTerm, setSearchTerm }) {
 
