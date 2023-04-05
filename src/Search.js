@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import './Search.css'
 
 function Search({ selectedTypes, setSelectedTypes }) {
   const [types, setTypes] = useState([])
@@ -26,7 +27,8 @@ function Search({ selectedTypes, setSelectedTypes }) {
   }
   
   return (
-    <div>
+    <div className='container'>
+      <div className='type-list'>
       {
         types.map(type => <div key={type}>
           <input
@@ -38,6 +40,7 @@ function Search({ selectedTypes, setSelectedTypes }) {
           <label htmlFor={type}>{type}</label>
         </div>)
       }
+      </div>
     </div>
   )
 }

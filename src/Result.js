@@ -95,7 +95,7 @@ function Result({ selectedTypes, PAGE_SIZE, setCurrentPage, currentPage }) {
     <div className="pokemon-grid">
       {
         currentPokemons.map(pokemon => (
-          <div key={pokemon.id} className="pokemon-card" onClick={() => handlePokemonClick(pokemon)}>
+          <div key={pokemon.id} className={`pokemon-card ${pokemon.type[0]}`} onClick={() => handlePokemonClick(pokemon)}>
             <img
               src={`https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${String(pokemon.id).padStart(
                 3,

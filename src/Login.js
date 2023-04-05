@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Dashboard from './Dashboard'
 import Search from './Search'
 import Result from './Result'
+import './Login.css'
 
 
 function Login() {

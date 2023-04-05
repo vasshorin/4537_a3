@@ -1,0 +1,33 @@
+/* Search.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 16px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+  }
+  
+  .type-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .type-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  input[type='checkbox'] {
+    cursor: pointer;
+  }
+  
+  label {
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
