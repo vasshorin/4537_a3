@@ -60,10 +60,10 @@ function Login() {
       }
      {
   (accessToken && user?.role === "user") &&
-  <Search selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes} setSearchTerm={setSearchTerm} />
+  <Search selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 }
 {
-  (selectedTypes.length > 0) &&
+  (selectedTypes.length > 0 || searchTerm.length > 0) &&
   <Result
     selectedTypes={selectedTypes}
     PAGE_SIZE={PAGE_SIZE}

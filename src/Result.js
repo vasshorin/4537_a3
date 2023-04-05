@@ -7,6 +7,7 @@ function Result({ selectedTypes, PAGE_SIZE, setCurrentPage, currentPage, searchT
 
   const [pokemons, setPokemons] = useState([])
   const [selectedPokemon, setSelectedPokemon] = useState(null)
+  const [filteredPokemons, setFilteredPokemons] = useState([])
 
 
 
@@ -18,13 +19,17 @@ function Result({ selectedTypes, PAGE_SIZE, setCurrentPage, currentPage, searchT
     fetchData()
   }, [])
 
-  const filteredPokemons = pokemons.filter(
-    (pokemon) =>
-      (
-        selectedTypes.every((type) => pokemon.type.includes(type))) &&
-      (searchTerm === "" || pokemon.name.english.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
-  
+  useEffect(() => {
+    setFilteredPokemons(pokemons.filter(pokemon => {
+      // if no type selected, search by name
+      if (selectedTypes.length === 0) {
+        return pokemon.name.english.toLowerCase().includes(searchTerm.toLowerCase())
+      }
+      // if type selected, search by type
+      return pokemon.type.some(type => selectedTypes.includes(type))
+    }))
+  }, [selectedTypes, searchTerm, pokemons])
+
 
   const indexOfLastPokemon = currentPage * PAGE_SIZE
   const indexOfFirstPokemon = indexOfLastPokemon - PAGE_SIZE

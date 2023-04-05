@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Search.css';
 
-function Search({ selectedTypes, setSelectedTypes, setSearchTerm }) {
+function Search({ selectedTypes, setSelectedTypes, searchTerm, setSearchTerm }) {
   const [types, setTypes] = useState([]);
 
   // called once when component is mounted
