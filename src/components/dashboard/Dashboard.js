@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import Report from '../report/Report'
 import {
-    Routes,
-    Route,
-    Link
-  } from "react-router-dom";
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
+import './Dashboard.css'
 
 
 function Dashboard({accessToken, setAccessToken, refreshToken, setRefreshToken, setUser}) {
 
+  const [reports, setReports] = useState([
+    { id: 1, name: 'Report 1 - Unique API user' },
+    { id: 2, name: 'Report 2 - TOP APIS users over period of time' },
+    { id: 3, name: 'Report 3 - 4xx Errors By Endpoint' },
+    { id: 4, name: 'Report 4 - TOP User for each end points' },
+    { id: 5, name: 'Report 5 - Recent 4xx/5xx Errors' }
+  ]);
+
   useEffect(() => {
-    console.log("Lpgin use effect is called")
     const savedRefreshToken = localStorage.getItem('refreshToken');
     const savedAccessToken = localStorage.getItem('accessToken');
     const savedUser = localStorage.getItem('user');
@@ -20,7 +28,6 @@ function Dashboard({accessToken, setAccessToken, refreshToken, setRefreshToken, 
       setUser(JSON.parse(savedUser));
     }
   }, []);
-  
 
   const onLogout = () => {
     localStorage.removeItem('accessToken');
@@ -31,31 +38,30 @@ function Dashboard({accessToken, setAccessToken, refreshToken, setRefreshToken, 
 
   return (
     <div>
-        <h1>
-        Dashboard
-        </h1> 
-        <nav>
+      <h1 id='header'>
+      <h2>Welcome, admin!</h2>
+      </h1>
+      <nav>
+
         <ul>
-            <li><Link to="report/1">Report 1 - Unique API user</Link></li>
-            <li><Link to="report/2">Report 2 - TOP APIS users over period of time</Link></li>
-            <li><Link to="report/3">Report 3 - 4xx Errors By Endpoint</Link></li>
-            <li><Link to="report/4">Report 4 - TOP User for each end points</Link></li>
-            <li><Link to="report/5">Report 5 - Recent 4xx/5xx Errors</Link></li>
+        
+          {reports.map(report => (
+            <li key={report.id}><button><Link to={`report/${report.id}`}>{report.name}</Link>                </button></li>
+          ))}
+
         </ul>
-        </nav>
+        <button className='logout' onClick={onLogout}>Logout</button>
+      </nav>
 
-       <Routes>
-        <Route path="/report/1" element={<Report id={1} accessToken={accessToken} setAccessToken={setAccessToken} refreshToken={refreshToken} setRefreshToken={setRefreshToken} setUser={setUser}/>} />
-        <Route path="/report/2" element={<Report id={2} accessToken={accessToken} setAccessToken={setAccessToken} refreshToken={refreshToken} setRefreshToken={setRefreshToken} setUser={setUser}/>} />
-        <Route path="/report/3" element={<Report id={3} accessToken={accessToken} setAccessToken={setAccessToken} refreshToken={refreshToken} setRefreshToken={setRefreshToken} setUser={setUser}/>} />
-        <Route path="/report/4" element={<Report id={4} accessToken={accessToken} setAccessToken={setAccessToken} refreshToken={refreshToken} setRefreshToken={setRefreshToken} setUser={setUser}/>} />
-        <Route path="/report/5" element={<Report id={5} accessToken={accessToken} setAccessToken={setAccessToken} refreshToken={refreshToken} setRefreshToken={setRefreshToken} setUser={setUser}/>} />
-      </Routes>
+      <div className="routes">
+        
+        <Routes>
+          {reports.map(report => (
 
-      <div>
-      <h1>Welcome, admin!</h1>
-      <button onClick={onLogout}>Logout</button>
-    </div>
+            <Route key={report.id} path={`/report/${report.id}`} element={<Report id={report.id} accessToken={accessToken} setAccessToken={setAccessToken} refreshToken={refreshToken} setRefreshToken={setRefreshToken} setUser={setUser}/>} />
+          ))}
+        </Routes>
+      </div>
     </div>
   )
 }
